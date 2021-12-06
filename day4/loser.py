@@ -67,13 +67,18 @@ while i < len(s):
 s = s[0].split(",")
 win = 0
 i = 0
-while i < len(s):
+for i in range(len(s)):
 	s[i] = int(s[i])
 	allsheets = addnum(allsheets, s[i])
 	win = checkbingo(allsheets)
+	while win != 0:
+		if len(allsheets) != 1:
+			allsheets.remove(win)
+			win = checkbingo(allsheets)
+		else:
+			break
 	if win != 0:
 		break
-	i += 1
 
 unmarked = 0
 for y in win:
@@ -81,6 +86,10 @@ for y in win:
 		if x[1] == 0:
 			unmarked += x[0]
 
+print(len(s))
+print(i, s[i])
+print(allsheets)
+print(win)
 score = unmarked * s[i]
 print(score)
 
