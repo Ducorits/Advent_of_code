@@ -41,23 +41,21 @@ for y in range(len(s)):
 			if s[y][x] < s[y + 1][x]:
 				lower += 1
 		if lower == around:
-			basins[y] = basins[y][:x] + "0" + basins[y][x + 1:]
+			basins[y] = basins[y][:x] + "O" + basins[y][x + 1:]
 		lower = 0
 		around = 0
 
 for y in range(len(s)):
 	for x in range(len(s[y])):
-		if basins[y][x] != "9" and basins[y][x] != "0":
+		if basins[y][x] != "9" and basins[y][x] != "O":
 			basins[y] = basins[y][:x] + " " + basins[y][x + 1:]
 		if basins[y][x] == "9":
 			basins[y] = basins[y][:x] + "█" + basins[y][x + 1:]
-# 	print(basins[y])
-# print(point)
 
 size = 0
 for y in range(len(basins)):
 	for x in range(len(basins[y])):
-		if basins[y][x] == "0":
+		if basins[y][x] == "O":
 			size = basinsize(basins, x, y)
 			if size >= largest[0]:
 				largest[1] = largest[0]
@@ -68,7 +66,8 @@ for y in range(len(basins)):
 				largest[1] = size
 			elif size >= largest[2]:
 				largest[2] = size
-			print(size, end=" ")
-	print("\r		", basins[y])
+
+for y in basins:
+	print(y)
 print(largest)
 print(largest[0] * largest[1] * largest[2])
