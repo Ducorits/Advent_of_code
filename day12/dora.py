@@ -1,25 +1,59 @@
+def	step(current, previous, caves, visited):
+	paths = 0
+	links = {}
+	if previous:
+		if previous.islower():
+			for x in visited:
+				if x == previous:
+					for i in caves:
+						for a in visited:
+							if a.islower():
+								links = set(caves[i])
+								links.discard(a)
+								caves.update({i : links})
+								# print(i, a, caves[i])
+	visited.append(current)
+	# print(current, previous, caves[current])
+	for x in caves[current]:
+		if x == "end":
+			paths += 1
+		else:
+			paths += step(x, current, caves.copy(), visited.copy())
+	return paths
+
 f = open("input")
 s = f.read().splitlines()
 f.close()
+for x in range(len(s)):
+	if not s[x]:
+		s.pop(x)
 
 for i in range(len(s)):
 	s[i] = s[i].split("-")
 
-caves = []
-x = 0
-i = 0
-while i in range(len(s)):
-	if caves:
-		while x in range(len(s)):
-			for a in range(len(caves)):
-				if caves[a][0] == s[i][x]:
-					caves[a].append()
-				# for b in range(len(caves[a])):
+caves = {
+}
+links = {}
+visited = []
 
+for x in s:
+	if x[0] in caves:
+		links = set(caves[x[0]])
+		links.add(x[1])
+		caves.update({x[0] : links})
 	else:
-		caves.append(s[i])
-		i = 0
-		continue
-	i += 1
+		caves.update({x[0] : {x[1]}})
+	if x[1] in caves:
+		links = set(caves[x[1]])
+		links.add(x[0])
+		caves.update({x[1] : links})
+	else:
+		caves.update({x[1] : {x[0]}})
 
-print(s, caves, x)
+paths = step("start", "", caves.copy(), visited)
+
+print(paths)
+# print(caves)
+# print(caves["start"])
+# print(caves[x[0]])
+# print(links)
