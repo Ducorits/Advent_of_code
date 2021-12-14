@@ -30,3 +30,5 @@ for x in s:
 print(caves)
 # print(caves[x[0]])
 # print(links)
+
+ and x in visited
