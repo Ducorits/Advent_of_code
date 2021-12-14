@@ -1,11 +1,12 @@
 def	step(current, previous, caves, visited):
 	paths = 0
-	links = {}
+	links = []
 	if previous:
 		for i in caves:
 			if previous.islower():
-				links = set(caves[i])
-				links.discard(previous)
+				links = list(caves[i])
+				if previous in links:
+					links.remove(previous)
 				caves.update({i : links})
 	for x in caves[current]:
 		if x == "end":
@@ -26,22 +27,22 @@ for i in range(len(s)):
 
 caves = {
 }
-links = {}
+links = []
 visited = {"start"}
 
 for x in s:
 	if x[0] in caves:
-		links = set(caves[x[0]])
-		links.add(x[1])
+		links = list(caves[x[0]])
+		links.append(x[1])
 		caves.update({x[0] : links})
 	else:
-		caves.update({x[0] : {x[1]}})
+		caves.update({x[0] : [x[1]]})
 	if x[1] in caves:
-		links = set(caves[x[1]])
-		links.add(x[0])
+		links = list(caves[x[1]])
+		links.append(x[0])
 		caves.update({x[1] : links})
 	else:
-		caves.update({x[1] : {x[0]}})
+		caves.update({x[1] : [x[0]]})
 print(caves)
 paths = step("start", "", caves.copy(), visited)
 
