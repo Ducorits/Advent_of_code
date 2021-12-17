@@ -30,14 +30,40 @@ def	step(y, x, risk_so_far, edges):
 	print(printpos)
 	return risk_so_far
 
+def	next_map_part(map_part):
+	next_part = []
+	for y in range(len(map_part)):
+		next_part.append("")
+		for x in range(len(map_part[y])):
+			if map_part[y][x] == "9":
+				next_part[y] += "1"
+			else:
+				next_part[y] += str(int(map_part[y][x]) + 1)
+	return next_part
 
 f = open("/Users/dritsema/Documents/advent_of_code/day15/input")
 weights = f.read().split("\n")
 weights.pop()
-weights[0] = "0" + weights[0][1:]
 visited = set()
-visual = weights.copy()
 
+tempmap = []
+map_parts = [weights]
+for i in range(4):
+	map_parts.append(next_map_part(map_parts[i]))
+
+for i in range(5):
+	for j in range(len(map_parts[0])):
+		tempstr = ""
+		for x in map_parts:
+			tempstr += x[j]
+		tempmap.append(tempstr)
+	for j in range(4):
+		map_parts[j] = map_parts[j + 1]
+	map_parts[4] = next_map_part(map_parts[4])
+
+weights = tempmap.copy()
+weights[0] = "0" + weights[0][1:]
+visual = weights.copy()
 print("\033[0;0f")
 for i in visual:
 			print(i)
