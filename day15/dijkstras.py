@@ -1,5 +1,3 @@
-import time
-
 def	neighbors(node, risk_so_far):
 	dirs = [[1, 0], [0, 1], [-1, 0], [0, -1]]
 	result = set()
