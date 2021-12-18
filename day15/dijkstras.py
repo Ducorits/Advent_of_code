@@ -29,7 +29,7 @@ def	step(y, x, risk_so_far, edges):
 	return risk_so_far
 
 
-f = open("/Users/dritsema/Documents/advent_of_code/day15/input")
+f = open("input")
 weights = f.read().split("\n")
 weights.pop()
 weights[0] = "0" + weights[0][1:]
