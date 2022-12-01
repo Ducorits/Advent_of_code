@@ -46,7 +46,7 @@ def	step(y, x, risk_so_far, edges):
 	return risk_so_far
 
 
-f = open("ones")
+f = open(input("Specify file to use: "))
 weights = f.read().split("\n")
 weights.pop()
 weights[0] = "0" + weights[0][1:]
